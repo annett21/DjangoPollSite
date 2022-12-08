@@ -1,0 +1,77 @@
+{% extends "polls/base_login.html" %}
+
+{% block content %}
+
+<div class="h100 row justify-content-center">
+    <div class="col-4 align-self-center">
+        <form class="form-floating" action="{% url 'polls:registration' %}" method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <label for="username" class="col col-form-label">Username</label>
+                <div class="col-9">
+                    {% if errors and errors.username %}
+                    <input type="text" name="username" class="form-control is-invalid" id="username" value="{{ username }}">
+                    <div class="invalid-feedback">{{ errors.username }}</div>
+                    {% elif errors and not errors.username %}
+                    <input type="text" name="username" class="form-control is-valid" id="username" value="{{ username }}">
+                    <div class="valid-feedback">Looks good!</div>
+                    {% else %}
+                    <input type="text" name="username" class="form-control" id="username">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="email" class="col col-form-label">Email</label>
+                <div class="col-9">
+                    {% if errors and errors.email %}
+                    <input type="text" name="email" class="form-control is-invalid" id="email" value="{{ email }}">
+                    <div class="invalid-feedback">{{ errors.email }}</div>
+                    {% elif errors and not errors.email %}
+                    <input type="text" name="email" class="form-control is-valid" id="email" value="{{ email }}">
+                    <div class="valid-feedback">Looks good!</div>
+                    {% else %}
+                    <input type="text" name="email" class="form-control" id="email">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="password1" class="col col-form-label">Password</label>
+                <div class="col-7">
+                    {% if errors and errors.password1 %}
+                    <input type="password" name="password1" class="form-control is-invalid" id="password1">
+                    <div class="invalid-feedback">{{ errors.password1 }}</div>
+                    {% elif errors and not errors.password1 %}
+                    <input type="password" name="password1" class="form-control is-valid" id="password1">
+                    <div class="valid-feedback">Looks good!</div>
+                    {% else %}
+                    <input type="password" name="password1" class="form-control" id="password1">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="password2" class="col col-form-label">Repeat password</label>
+                <div class="col-7">
+                    {% if errors and errors.password2 %}
+                    <input type="password" name="password2" class="form-control is-invalid" id="password2">
+                    <div class="invalid-feedback">{{ errors.password2 }}</div>
+                    {% elif errors and not errors.password2 %}
+                    <input type="password" name="password2" class="form-control is-valid" id="password2">
+                    <div class="valid-feedback">Looks good!</div>
+                    {% else %}
+                    <input type="password" name="password2" class="form-control" id="password2">
+                    {% endif %}
+                </div>
+              </div>
+            <div class="row mb-3 justify-content-between">
+                <div class="col">
+                    <a href="/polls/login">Already have an account?</a>
+                </div>
+                <div class="col" style="text-align: end;">
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

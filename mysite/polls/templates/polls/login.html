@@ -1,0 +1,39 @@
+{% extends "polls/base_login.html" %}
+
+{% block content %}
+
+<div class="h100 row justify-content-center">
+    <div class="col-4 align-self-center">
+      {% for msg in messages %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <div>{{msg}}</div>
+        </div>   
+      {% endfor %}
+        <form action="{% url 'polls:login' %}" method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+              <label for="username" class="col col-form-label">Username</label>
+              <div class="col-9">
+                <input type="text" name="username" class="form-control" id="username">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="password" class="col col-form-label">Password</label>
+              <div class="col-9">
+                <input type="password" name="password" class="form-control" id="password">
+              </div>
+            </div>
+            <div class="row mb-3 justify-content-between">
+                <div class="col">
+                    <a href="/polls/registration">Don't have an account?</a>
+                </div>
+                <div class="col" style="text-align: end;">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

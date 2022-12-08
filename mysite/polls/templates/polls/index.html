@@ -1,0 +1,59 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% for msg in messages %}
+<div class="alert alert-success" role="alert">
+    <div>{{msg}}</div>
+</div>   
+{% endfor %}
+
+<div class="container text-right">
+    <div class="row question-title">
+        <div class="col align-self-start">
+            {% if latest_question_list %}
+                <div class="list-group">
+                {% for question in latest_question_list %}
+                    <a href="{% url 'polls:vote' question.id %}" class="list-group-item list-group-item-action">{{ question.question_text }}</a>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>No polls are available.</p>
+            {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-2"></div>
+        <div class="col align-self-center">
+            <form action="{% url 'polls:addpolls' %}" method="post">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="question_text" class="col col-form-label">Question text</label>
+                    <div class="col-8">
+                        <input type="text" name="question_text" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3 row-choice-input">
+                    <label for="choice_text" class="col col-form-label">Choice</label>
+                    <div class="col-8">
+                        <input type="text" name="choices" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-start">
+                        <button type="button" class="btn btn-link" id="plus_choice">+ choice</button>
+                    </div>
+                    <div class="col text-end">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'polls/js/index.js' %}"></script>
+{% endblock %}
